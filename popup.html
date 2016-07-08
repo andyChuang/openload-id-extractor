@@ -2,13 +2,36 @@
 <html>
 <head>
   <script src="third-party-script/jquery-3.0.0.min.js"></script>
+  <script src="third-party-script/clipboard.min.js"></script>
   <script src='pattern.js'></script>
   <script src='popup.js'></script>
+
+  <style>
+    .prefixDiv{
+      float: right;
+      width: 50%;
+    }
+
+    .candidateDiv{
+      float: left;
+      width: 50%;
+    }
+  </style>
 </head>
 <body style="width:400px;">
-  <div id='message'>Injecting Script....</div>
-  <div>
-    <ul id="candidate"></ul>
+  <div class="candidateDiv">
+    <div id='message'></div>
+    <div>
+      <ul id="candidate"></ul>
+    </div>
   </div>
+  <div class="prefixDiv">
+    <b>Choose a prefix</b>
+    <select id="hrefPrefix">
+      <option value="https://openload.co/f/">https://openload.co/f/</option>
+      <option value="http://openload.co/f/">http://openload.co/f/</option>
+    </select>
+  </div>
+  
 </body>
 </html>

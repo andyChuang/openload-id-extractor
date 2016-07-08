@@ -8,12 +8,14 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 
 // Update <ul> in pop.html with candidates
 function updateCandidateUIList(candidates){
-  console.log(message);
+
+  initClipBoardJs();
+
   message.innerText = "No openload id is found!";
 
   $.each(candidates, function(idx, candidate){
     message.innerText = "Find openload id! Click to copy!";
-    $("#candidate").append("<li>" + candidate + "</li>");
+    $("#candidate").append("<li id=\"openloadId\" data-clipboard-target=\"#candidate\"><a id=\"candidate\" href=\"#\">" + candidate + "</a></li>");
   });
 }
 
@@ -22,9 +24,8 @@ function findOpenload(content){
   var matchedCandidate = [];
 
   $.each(openloadPattern, function(idx, pattern){
-    console.log(pattern);
     if(pattern.test(content)){
-      console.log(pattern + "find.");
+      console.log("Pattern " + pattern + " is found.");
       matchedCandidate.push(RegExp.$1);
     }
   });
@@ -32,9 +33,25 @@ function findOpenload(content){
   return matchedCandidate;
 }
 
+function initClipBoardJs(){
+
+  var clipboard = new Clipboard('#openloadId', {
+    text: function(trigger){
+      return $("#hrefPrefix").find(":selected").val() + $(trigger).find("#candidate").html();
+    }
+  });
+
+  clipboard.on('success', function(e) {
+    $("#message").html("Copied " + e.text);
+
+    e.clearSelection();
+});
+
+}
+
 function onWindowLoad() {
 
-   message = document.querySelector('#message');
+  message = document.querySelector('#message');
 
   chrome.tabs.executeScript(null, {
     file: "getPagesSource.js"
