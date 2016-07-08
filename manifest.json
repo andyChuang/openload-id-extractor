@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Openload-id-getter",
+  "name": "Openload-id-extracter",
   "description": "This extension gets openload video id.",
   "version": "1.0",
 
@@ -11,12 +11,6 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html",
-    "default_title": "Click here!"
-  },
-  "content_scripts": [
-    {
-      "matches": ["*://*/*"],
-      "js": ["third-party-script/jquery-3.0.0.min.js", "content_script.js"] // Jquery must be write before the content script!
-    }
-  ]
+    "default_title": "Get openload id"
+  }
 }
